@@ -4,7 +4,8 @@ import { Form, Label } from "semantic-ui-react";
 interface Props {
     label?: string,
     placeholder: string,
-    name: string
+    name: string,
+    type?: string
 }
 
 export default function MyTextInput(props: Props) {
