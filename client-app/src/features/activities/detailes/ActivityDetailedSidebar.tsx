@@ -1,4 +1,3 @@
-import React from 'react'
 import { Segment, List, Label, Item, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
@@ -36,7 +35,7 @@ export default observer(function ActivityDetailedSidebar({ activity: { attendees
                                     Host
                                 </Label>
                             }
-                            <Image size='tiny' as={Link} to={`/profile/${attendee.username}`} />
+                            <Image size='tiny' to={`/profiles/${attendee.username}`} src={attendee.image || '/assets/user.png'}/>
                             <Item.Content verticalAlign='middle'>
                                 <Item.Header as='h3'>
                                     <Link to={`#`}>{attendee.displayName}</Link>

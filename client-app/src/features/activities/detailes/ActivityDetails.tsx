@@ -13,23 +13,25 @@ export default observer(function ActivityDetails() {
     const { activityStore } = useStore();
     const activity = activityStore.selectedActivity;
     const { id } = useParams();
+    const clearSelectedActivity = activityStore.clearSelectedActivity;
+    const loadActivity = activityStore.loadActivity;
 
     useEffect(() => {
-        if (id) activityStore.loadActivity(id);
-
-    }, [id, activityStore.loadActivity])
+        if (id) loadActivity(id);
+        return () => clearSelectedActivity();
+    }, [id, loadActivity, clearSelectedActivity])
 
     if (activityStore.loadingInitial || !activity) return <LoadingComponent />;
 
     return (
         <Grid>
             <Grid.Column width={10}>
-                <ActivityDetailedHeader activity={activity}/>
-                <ActivityDetailedInfo activity={activity}/>
-                <ActivityDetailedChat />
+                <ActivityDetailedHeader activity={activity} />
+                <ActivityDetailedInfo activity={activity} />
+                <ActivityDetailedChat activityId={activity.id} />
             </Grid.Column>
             <Grid.Column width={6}>
-                <ActivityDetailedSidebar activity={activity}/>
+                <ActivityDetailedSidebar activity={activity} />
             </Grid.Column>
         </Grid>
     )
