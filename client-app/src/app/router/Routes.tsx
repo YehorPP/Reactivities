@@ -1,6 +1,5 @@
 import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom";
 import App from "../layout/App";
-import HomePage from "../../features/home/HomePage";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/detailes/ActivityDetails";
@@ -9,6 +8,7 @@ import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/users/LoginForm";
 import ProfilePage from "../../features/profiles/ProfilePage";
+import RequireAuth from "./RequireAuth";
 
 export const routes: RouteObject[] = [
     {
@@ -16,32 +16,36 @@ export const routes: RouteObject[] = [
         element: <App />,
         children: [
             {
-                path: 'Activities',
-                element: <ActivityDashboard />,
-            },
-            {
-                path: 'Activities/:id',
-                element: <ActivityDetails />,
-            },
-            {
-                path: 'CreateActivity',
-                element: <ActivityForm key='create' />,
-            },
-            {
-                path: 'manage/:id',
-                element: <ActivityForm key='manage' />,
-            },
-            {
-                path: 'profiles/:username',
-                element: <ProfilePage />,
-            },
-            {
-                path: 'login',
-                element: <LoginForm />,
-            },
-            {
-                path: 'errors',
-                element: <TestErrors />,
+                element: <RequireAuth />, children: [
+                    {
+                        path: 'Activities',
+                        element: <ActivityDashboard />,
+                    },
+                    {
+                        path: 'Activities/:id',
+                        element: <ActivityDetails />,
+                    },
+                    {
+                        path: 'CreateActivity',
+                        element: <ActivityForm key='create' />,
+                    },
+                    {
+                        path: 'manage/:id',
+                        element: <ActivityForm key='manage' />,
+                    },
+                    {
+                        path: 'profiles/:username',
+                        element: <ProfilePage />,
+                    },
+                    {
+                        path: 'login',
+                        element: <LoginForm />,
+                    },
+                    {
+                        path: 'errors',
+                        element: <TestErrors />,
+                    }
+                ]
             },
             {
                 path: 'not-found',
@@ -54,7 +58,7 @@ export const routes: RouteObject[] = [
             {
                 path: '*',
                 element: <Navigate replace to='/not-found' />,
-            },
+            }
         ]
     }
 ];
